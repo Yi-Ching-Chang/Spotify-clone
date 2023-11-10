@@ -5,7 +5,7 @@ import { getSession, getProviders, useSession } from "next-auth/react";
 import Sidebar from "../components/Sidebar";
 // import Center from "../components/Center";
 // import Player from "../components/Player";
-import Login from "../components/login";
+// import Login from "../components/login";
 import Center from "../components/Center";
 
 export default function Home({ providers }) {
@@ -21,7 +21,7 @@ export default function Home({ providers }) {
           href="https://th.bing.com/th/id/R.fe4bfd3bd082e4fd4d6aca3f255925b1?rik=Hwa9QxFb3%2bIjtw&pid=ImgRaw&r=0"
         />
       </Head>
-      {session ? (
+      
         <>
           <main className="flex">
             <Sidebar />
@@ -31,9 +31,7 @@ export default function Home({ providers }) {
             {/* <Player /> */}
           </div>
         </>
-      ) : (
-        <Login providers={providers} />
-      )}
+     
     </div>
   );
 }

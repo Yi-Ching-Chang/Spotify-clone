@@ -18,7 +18,6 @@ async function refreshAccessToken(token) {
 
       //如果token有更新則取代原本的token，如果沒更新就顯示先前的token
       refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
-      
     };
   } catch (error) {
     console.log(error);

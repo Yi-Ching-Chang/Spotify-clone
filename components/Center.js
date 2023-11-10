@@ -2,6 +2,8 @@ import { useSession } from "next-auth/react";
 import { ChevronDownIcon } from "@heroicons/react/outline";
 import React, { useEffect, useState } from "react";
 import { shuffle } from "lodash";
+import { useRecoilValue } from "recoil";
+import { playlistIdState } from "../atoms/playlistAtom";
 
 const colors = [
   "from-indigo-500",
@@ -16,11 +18,12 @@ const colors = [
 export default function Center() {
   const { data: session } = useSession();
   const [color, setColor] = useState(null);
+  const playlistId = useRecoilValue(playlistIdState);
 
   //section顏色重整後會隨機更換
   useEffect(() => {
     setColor(shuffle(colors).pop());
-  }, []);
+  }, [playlistId]);
   return (
     <>
       <div className="flex-grow">
@@ -29,7 +32,7 @@ export default function Center() {
             <img
               className="rounded-full w-10 h-10"
               src={session.user.image}
-              alt="用戶照片"
+              alt="user_pic"
             />
             <h2>{session.user.name}</h2>
             <ChevronDownIcon className="h-5 w-5" />
