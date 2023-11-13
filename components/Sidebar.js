@@ -7,6 +7,7 @@ import {
   HeartIcon,
   RssIcon,
   LogoutIcon,
+  PlusIcon,
 } from "@heroicons/react/outline";
 import { signOut, useSession } from "next-auth/react";
 import spotifyApi from "../lib/spotify";
@@ -36,7 +37,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className="text-gray-500 p-5 text-xs border-r border-gray-900 h-screen ">
+      <div className="text-gray-500 p-5 text-xs lg:text-sm border-r border-gray-900  h-screen sm:max-w-[12rem] lg:max-w-[15rem] hidden md:inline-flex pb-36 overflow-y-scroll scrollbar-hide">
         <div className="space-y-4">
           <button
             className="flex items-center space-x-2 hover:text-white"
@@ -53,17 +54,32 @@ export default function Sidebar() {
             <SearchIcon className="h-5 w-5" />
             <p>搜尋</p>
           </button>
-          <button className="flex items-center space-x-2 hover:text-white">
-            <LibraryIcon className="h-5 w-5" />
-            <p>你的音樂庫</p>
-          </button>
 
           <hr className="border-t-[0.1px] border-gray-900" />
+          <div className="flex  justify-between ">
+            <button className="flex items-center space-x-2 hover:text-white">
+              <LibraryIcon className="h-5 w-5" />
+              <p>你的音樂庫</p>
+            </button>
+            <button className="flex items-center space-x-2 hover:text-white">
+              <PlusIcon className="h-5 w-5" />
+            </button>
+          </div>
+          <div className="flex ">
+            <button className=" bg-sidebar-btn-color text-white w-20 h-7 rounded-lg hover:bg-sidebar-btn-hover mr-2">
+              播放清單
+            </button>
+            <button className=" bg-sidebar-btn-color text-white w-12 h-7 rounded-lg hover:bg-sidebar-btn-hover mr-2">
+              藝人
+            </button>
+            <button className=" bg-sidebar-btn-color text-white w-12 h-7 rounded-lg hover:bg-sidebar-btn-hover mr-2">
+              專輯
+            </button>
+            {/* <button className=" bg-sidebar-btn-color text-white w-28 h-7 rounded-lg hover:bg-sidebar-btn-hover mr-2 ">
+              Podcast 和節目
+            </button> */}
+          </div>
 
-          <button className="flex items-center space-x-2 hover:text-white">
-            <PlusCircleIcon className="h-5 w-5" />
-            <p>建立播放清單</p>
-          </button>
           <button className="flex items-center space-x-2 hover:text-white">
             <HeartIcon className="h-5 w-5" />
             <p>已按讚的歌曲</p>
