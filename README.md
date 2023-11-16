@@ -2,8 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Demo
 
-![登入畫面](https://ibb.co/FhhBZws)
-![利用API抓播放清單](https://ibb.co/N68fXd6)
+![登入畫面](https://i.ibb.co/FhhBZws/Fire-Shot-Capture-001-Login-localhost.png)
+![利用API抓會員的播放清單](https://i.ibb.co/N68fXd6/Fire-Shot-Capture-003-Spotify-clone-localhost.png)
 
 
 ## Getting Started
