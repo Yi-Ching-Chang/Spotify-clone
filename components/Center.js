@@ -1,4 +1,8 @@
-import { ChevronDownIcon, LogoutIcon } from "@heroicons/react/outline";
+import {
+  ChevronDownIcon,
+  HeartIcon,
+  LogoutIcon,
+} from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
 import { shuffle } from "lodash";
 import { useState, useEffect } from "react";
@@ -7,6 +11,7 @@ import { playlistIdState, playlistState } from "../atoms/playlistAtom";
 import useSpotify from "../hooks/useSpotify";
 import Songs from "./Songs";
 import { signOut } from "next-auth/react";
+import FavBtn from "./FavBtn";
 
 const colors = [
   "from-indigo-500",
@@ -84,7 +89,7 @@ function Center() {
           <h1 className="text-2xl md:text-3xl xl:text-5xl">{playlist?.name}</h1>
         </div>
       </section>
-
+      
       <div>
         <Songs />
       </div>

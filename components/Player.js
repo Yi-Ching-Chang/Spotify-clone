@@ -23,8 +23,7 @@ const Player = () => {
     useRecoilState(currentTrackIdState);
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
   const [volume, setVolume] = useState(50);
-
-  const songInfo = useSongInfo();
+  const [songInfo, setSongInfo] = useState(null); // 新增 songInfo 狀態
 
   const fetchCurrentSong = () => {
     if (!songInfo) {
@@ -37,6 +36,9 @@ const Player = () => {
             setIsPlaying(data.body.is_playing);
           }
         });
+
+        // 更新歌曲信息
+        setSongInfo(data?.body?.item);
       });
     }
   };
@@ -69,8 +71,59 @@ const Player = () => {
     if (spotifyApi.getAccessToken() && !currentTrackId) {
       fetchCurrentSong();
       setVolume(50);
-    }
+    } // 設定定時器，定期檢查當前播放的歌曲狀態
+    const checkCurrentPlayback = async () => {
+      try {
+        const response = await spotifyApi.getMyCurrentPlaybackState();
+        const playbackState = response.body;
+
+        if (
+          playbackState &&
+          playbackState.is_playing &&
+          playbackState.progress_ms >= playbackState.item.duration_ms
+        ) {
+          console.log(
+            "Current track has finished playing. Playing next track..."
+          );
+          skipToNextTrack();
+        }
+      } catch (error) {
+        console.error("Error checking current playback:", error);
+      }
+    };
+
+    const playbackInterval = setInterval(checkCurrentPlayback, 5000); // 這裡設定每5秒檢查一次，你可以根據需要調整間隔時間
+
+    // 在 component 卸載時清除定時器
+    return () => clearInterval(playbackInterval);
   }, [currentTrackId, spotifyApi, session]);
+
+  const skipToPreviousTrack = () => {
+    // 回到上一首
+    spotifyApi.skipToPrevious().then(
+      function () {
+        console.log("Skip to previous");
+      },
+      function (err) {
+        //if the user making the request is non-premium, a 403 FORBIDDEN response code will be returned
+        console.log("Something went wrong!", err);
+      }
+    );
+  };
+
+  const skipToNextTrack = () => {
+    // 跳到下一首
+    spotifyApi.skipToNext().then(
+      function () {
+        console.log("Skip to previous");
+      },
+      function (err) {
+        console.error("Something went wrong!", err);
+      }
+    );
+
+    fetchCurrentSong(); // 更新當前播放歌曲的信息
+  };
 
   const debounceAdjustVolume = useCallback(
     debounce((volume) => {
@@ -97,6 +150,7 @@ const Player = () => {
           alt="Song_Poster"
         />
         <div>
+          {/* 使用 songInfo 更新 UI */}
           <h3>{songInfo?.name}</h3>
           <p>{songInfo?.artists?.[0]?.name}</p>
         </div>
@@ -105,19 +159,14 @@ const Player = () => {
       {/* Center */}
       <div className="flex items-center justify-evenly">
         <SwitchHorizontalIcon className="button" />
-        <RewindIcon
-          className="button"
-         
-        />
+    
+        <RewindIcon className="button" onClick={skipToPreviousTrack} />
         {isPlaying ? (
           <PauseIcon onClick={handlePlayPause} className="button w-10 h-10" />
         ) : (
           <PlayIcon onClick={handlePlayPause} className="button w-10 h-10" />
         )}
-        <FastForwardIcon
-          className="button"
-          
-        />
+        <FastForwardIcon className="button" onClick={skipToNextTrack} />
         <ReplyIcon className="button" />
       </div>
 

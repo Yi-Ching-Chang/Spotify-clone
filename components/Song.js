@@ -2,6 +2,7 @@ import { useRecoilState } from "recoil";
 import { currentTrackIdState, isPlayingState } from "../atoms/songAtom";
 import useSpotify from "../hooks/useSpotify";
 import { millisToMinutesAndSeconds } from "../lib/time";
+import FavBtn from "./FavBtn";
 
 function Song({ order, track }) {
   const spotifyApi = useSpotify();
@@ -41,6 +42,7 @@ function Song({ order, track }) {
         <p className="hidden md:inline w-40 lg:w-96 truncate">
           {track.track.album.name}
         </p>
+        <FavBtn />
         <p>{millisToMinutesAndSeconds(track.track.duration_ms)}</p>
       </div>
     </div>

@@ -37,6 +37,7 @@ export default function Sidebar() {
 
   return (
     <>
+    
       <div className="text-gray-500 p-5 text-xs lg:text-sm border-r border-gray-900  h-screen sm:max-w-[12rem] lg:max-w-[15rem] hidden md:inline-flex pb-36 overflow-y-scroll scrollbar-hide">
         <div className="space-y-4">
           <button
@@ -66,6 +67,7 @@ export default function Sidebar() {
             </button>
           </div>
           <div className="flex ">
+            
             <button className=" bg-sidebar-btn-color text-white w-20 h-7 rounded-lg hover:bg-sidebar-btn-hover mr-2">
               播放清單
             </button>
